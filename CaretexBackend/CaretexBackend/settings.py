@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
     'corsheaders',
 ]
 
@@ -151,3 +152,10 @@ REST_FRAMEWORK = {
     'rest_framework.authtoken',
 ]
 }
+
+EMAIL_BACKEND = 'django.core.mail.backend.smtp.EmailBackend'
+EMAIL_HOST = 'stmp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'talkshrey@gmail.com'
+EMAIL_HOST_PASSWORD = 'drawings24%'

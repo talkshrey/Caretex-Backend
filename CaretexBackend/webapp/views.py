@@ -12,6 +12,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.http import HttpResponse, response
 from . import serializers, models, forms
 from django.contrib.auth import logout, authenticate, login
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -25,7 +27,15 @@ def signup(request):
         forms.CreateUser(request.POST)
         if register.is_valid():
             register.save()
+            login(request, forms)
+            subject = 'Welcome to Caretex'
+            message = f'Hi {forms.username}, Thank you for registering in Caretex.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [forms.email, ]
+            send_mail( subject, message, email_from, recipient_list )
             return response(register)
+        else:
+            return HttpResponse('form not filled')
     return HttpResponse('Not valid')
 
 # Login User
